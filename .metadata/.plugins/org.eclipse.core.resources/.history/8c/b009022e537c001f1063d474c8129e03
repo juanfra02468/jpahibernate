@@ -1,0 +1,7 @@
+package centripio.ecommerce;
+
+public class EntityManagerCreate {
+	public static void main(String[] args) {
+		
+	}
+}
