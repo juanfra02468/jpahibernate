@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import centripio.ecommerce.entity.enums.CustomerStatus;
@@ -45,7 +46,23 @@ public class Order {
 	 @OneToMany(mappedBy="order")
 	 private List<OrderLine> lines;
 	 
-	 private void updateTotal() {
+	 @OneToOne(mappedBy="order")
+	 private Payment payment;
+	 
+	 public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		payment.setOrder(this);
+		this.payment = payment;
+	}
+
+	public void setRegDate(LocalDateTime regDate) {
+		this.regDate = regDate;
+	}
+
+	private void updateTotal() {
 		 List<OrderLine> lines = getLines();
 		 double total = 0;
 		 for (OrderLine line: lines) {

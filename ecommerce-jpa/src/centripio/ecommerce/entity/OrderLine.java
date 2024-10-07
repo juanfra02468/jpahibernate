@@ -1,6 +1,5 @@
 package centripio.ecommerce.entity;
 
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,13 +23,14 @@ public class OrderLine {
 	@JoinColumn(name="fk_order", nullable=false, updatable=false)
 	private Order order;
 	
-	@Column(name="product", length=100, nullable=false)
-	private String product;
+	@ManyToOne
+	@JoinColumn(name="fk_product", nullable=false)
+	private Product product;
 	
 	@Column(name="quantity", nullable=false)
 	private Double quantity = 0d;
 	
-	@Column(name="unitPrice", nullable=false)
+	@Column(name="unit_price", nullable=false)
 	private Double unitPrice = 0d;
 	
 	@Column(name="total", nullable=false)
@@ -54,12 +53,14 @@ public class OrderLine {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getProduct() {
+
+	public Product getProduct() {
 		return product;
 	}
-	public void setProduct(String product) {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
+	
 	public Double getQuantity() {
 		return quantity;
 	}
